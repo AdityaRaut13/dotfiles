@@ -1,0 +1,6 @@
+drwxrwxr-x    4 1000     1000         4096 Nov 02 20:22 .
+drwx------   31 1000     1000         4096 Nov 02 16:12 ..
+-rw-rw-r--    1 1000     1000         4512 Oct 22 12:19 init.vim
+lrwxrwxrwx    1 0        0               6 Nov 02 20:22 nvim -> ./nvim
+drwxr-xr-x    2 1000     1000         4096 Sep 25 09:42 plug-config
+drwxr-xr-x    2 1000     1000         4096 Sep 12 11:38 themes
