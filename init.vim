@@ -165,6 +165,8 @@ let g:nvim_tree_icons = {
 
 " this is for background change
 hi Normal guibg=NONE ctermbg=NONE
+hi LineNr guifg=lightskyblue 
+hi comment guifg=#c6a6df
 "hi LineNr guibg=Black
 "hi LineNr guifg=LightYellow
 "nnoremap <C-t> <cmd>hi Normal guibg=NONE ctermbg=NONE<CR>
