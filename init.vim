@@ -1,14 +1,16 @@
 set number
 set relativenumber
 set nohls
+set preserveindent
+set softtabstop=0
+set shiftwidth=0
 set tabstop=4
-set shiftwidth=4
-set expandtab
-set smartindent
+set noexpandtab
 set termguicolors
 set mouse=a
 set list
 set listchars=tab:>>:
+filetype indent on 
 call plug#begin()
     Plug 'https://github.com/morhetz/gruvbox'
 	Plug 'https://github.com/neovim/nvim-lspconfig'
@@ -36,6 +38,8 @@ call plug#begin()
     Plug 'tpope/vim-fugitive'
     Plug 'folke/trouble.nvim'
     Plug 'sainnhe/gruvbox-material'
+	Plug 'puremourning/vimspector'
+	Plug 'folke/lsp-colors.nvim'
     
     " For luasnip users.
     " Plug 'L3MON4D3/LuaSnip'
@@ -52,7 +56,7 @@ call plug#end()
 let mapleader=" "
 "set completeopt=menu,noselect,menuone
 
-source ~/.config/nvim/lua/nvim-lspconfig.lua
+source ~/.config/nvim/lua/lsp/nvim-lsp-init.lua
 source ~/.config/nvim/lua/nvim-lspinstaller.lua
 source ~/.config/nvim/lua/nvimtree.lua
 source ~/.config/nvim/lua/treesitter.lua
@@ -64,12 +68,16 @@ colorscheme gruvbox
 
 
 " this is for the status line
-let g:airline_theme='base16'
+let g:airline_theme='base16_ocean'
 let g:airline#extensions#tabline#formatter = 'unique_tail' " file-name.js
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " unicode symbols
 let g:airline_left_sep = '»'
@@ -98,7 +106,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 " this is for prettier 
 let g:neoformat_cpp_astyle8={
         \ 'exe':'astyle',
-        \ 'args':['-A1', '-t', '-xn', '-xc', '-C', '-xG' ,'-S' ,'-K' ,'-N' ,'-Y' ,'-xg','-p','-k3','-W3','-xe','-xj'],
+        \ 'args':['-A1', '-t', '-xn', '-xc', '-C', '-xG' ,'-S' ,'-K' ,'-N' ,'-Y' ,'-xg','-p','-k3','-W3','-xe','-xj','-M80'],
         \ 'replace':1,
         \ }
 let g:neoformat_enabled_cpp=['astyle8']
@@ -162,7 +170,6 @@ let g:nvim_tree_icons = {
 
                     
 
-
 " this is for background change
 hi Normal guibg=NONE ctermbg=NONE
 hi LineNr guifg=lightskyblue 
@@ -174,6 +181,28 @@ hi comment guifg=#c6a6df
 
 "hi Normal guibg=black ctermbg=blue
 
+" This is viminspector
+let g:vimspector_enable_mappings='HUMAN'
+let g:vimspector_variables_display_mode = 'full'
 
-
+nnoremap <leader>dp <Plug>VimspectorBalloonEval
+nnoremap <leader>dl <Plug>VimspectorStepInto
+nnoremap <leader>de <CMD>VimspectorReset<CR>
+nnoremap <leader>df <Plug>VimspectorStepOut
+nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap K  <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <C-k>      <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>wa <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
+nnoremap <leader>wr <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
+nnoremap <leader>wl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
+nnoremap <leader>D  <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <leader>f  <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <TAB>n <cmd> bnext<CR>
+nnoremap <TAB>p <cmd> bprev<CR>
+nnoremap <TAB>d <cmd> bdelete<CR>
 
